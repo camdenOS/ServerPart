@@ -9,10 +9,12 @@ import java.net.Socket;
 
 public class Athread extends Thread {
     Socket connSocket;
-    public Athread(Socket clients){
-        connSocket=clients;
+
+    public Athread(Socket clients) {
+        connSocket = clients;
     }
-    public void run(){
+
+    public void run() {
         while (true) {
 
             BufferedReader inClient = null;
@@ -60,14 +62,6 @@ public class Athread extends Thread {
 
         }
     }
-    public static void main(String[] args) throws IOException {
-        ServerSocket serverS;
-        serverS = new ServerSocket(7890);
 
-        while (true) {
-    Socket connSocket =serverS.accept();
-    Athread a= new Athread(connSocket);
-    a.start();
-        }
-    }
+    
 }

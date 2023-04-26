@@ -8,37 +8,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Locale;
 
-public class Server extends Thread{
-
-
-
-    public static void main(String[] args) {
+public class Server  {
+    
+    public static void main(String[] args) throws IOException {
         ServerSocket serverS;
+        serverS = new ServerSocket(7890);
 
-            try {
-                serverS = new ServerSocket(7890);
-                while(true){
-                    Socket connSocket = serverS.accept();
-                    BufferedReader inClient = new BufferedReader(new InputStreamReader(connSocket.getInputStream()));
-                    DataOutputStream outToCLient = new DataOutputStream(connSocket.getOutputStream());
-                    while(true){
-                        String megFromClient = inClient.readLine();
-
-                        System.out.println("Recive: " + megFromClient);
-                        outToCLient.writeBytes(megFromClient.toUpperCase() + '\n');
-                        System.out.println("send: " + megFromClient.toUpperCase() + '\n');
-                        if(megFromClient.equals("see you again")){
-                            connSocket.close();
-                            serverS.close();
-                            break;
-                        }
-                    }
-
-            }
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        while (true) {
+            Socket connSocket = serverS.accept();
+            Athread a = new Athread(connSocket);
+            a.start();
         }
     }
     }
